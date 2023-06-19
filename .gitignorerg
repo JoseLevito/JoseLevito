@@ -1,0 +1,164 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+// Endereço I2C do LCD
+#define LCD_ADDRESS 0x27
+
+// Numero de colunas e linhas do display LCD
+#define LCD_COLUNS 16
+#define LCD_ROWS 2
+// Variável para armazenar o estado switch
+int switchState = 0;
+
+// Inicializa o objeto display LCD
+LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLUNS, LCD_ROWS);
+
+void setup() {
+
+  Serial.begin(9600);
+  lcd.init();
+  lcd.backlight();
+
+  // Exibe o estado inicial do switch no display
+  lcd.print("Switch state :");
+  lcd.setCursor(0, 1);
+  lcd.print(switchState);
+}
+
+void loop() {
+  // Variáveis questão 1: 
+  float altura =0;
+  float base = 0;
+  float Area=0;
+  // Variáveis questão 2: 
+  
+  float lado =0;
+  float perimetro=0;
+  float A=0;
+  // Variáveis questão 3: 
+  float pi;
+  float raio;
+  float P ;
+  
+  if (Serial.available()) {
+    switchState = Serial.parseInt();
+
+    while (Serial.available()) {
+      Serial.read();
+    }
+   
+   lcd.clear();
+
+    switch (switchState) {
+
+      case 0:
+       Serial.println("");
+       Serial.println("Dado o tamanho da base e da altura de um retângulo, calcular a sua área e o seu perímetro.");
+     
+        Serial.println("digite a base = ");
+        while (Serial.available()==0) {
+     
+    }
+        
+          base = Serial.parseInt();
+          Serial.read();
+     
+      
+        Serial.println("digite a altura =");
+        
+        while (Serial.available()==0) {
+     
+    }
+        
+          altura = Serial.parseInt();
+          Serial.read();
+     
+      
+       
+        Area = base * altura;
+        lcd.print(base);
+        lcd.print(altura);
+        lcd.print("Area = ");
+        lcd.print(Area);
+
+        Serial.println("base:");
+        Serial.println(base);
+        Serial.println("altura");
+        Serial.println(altura);
+        Serial.println("Area = ");
+        Serial.println(Area);
+
+
+
+
+        break;
+
+      case 1:
+
+        Serial.println("");
+         Serial.println("Dado o tamanho do lado de um quadrado, calcular a área e o perímetro do mesmo");
+        lcd.print("Dado o tamanho do lado de um quadrado, calcular a área e o perímetro do mesmo");
+
+         Serial.println("digite a lado = ");
+        while (Serial.available()==0) {
+ }
+  
+          lado = Serial.parseInt();
+          Serial.read();
+   
+    perimetro = 4*lado ;
+    A = lado*lado ;
+      
+    Serial.print("lado=");
+    Serial.println(lado);
+    Serial.print("perimetro=");
+    Serial.println(perimetro);
+    Serial.print("Area = ");
+    Serial.println(A);  
+        
+      break;
+
+      case 2:
+        lcd.print("Switch state: 2");
+      
+        Serial.println("Dado o tamanho do raio de uma circunferência, calcular a área e o perímetro da mesma");
+        Serial.println("Digite o raio :")
+          
+           while (Serial.available()==0) {
+           raio = Serial.parseInt();
+           Serial.read();
+          
+          area = pi*raio*raio;
+          P=2*pi*raio ;
+          
+          Serial.print("Area = " );
+          Serial.println(area);
+          Serial.print("Comprimento = ");
+          Serial.println(P);
+          
+      
+          
+     
+        break;
+
+      case 3:
+        lcd.print("Switch state: 3");
+       
+        break;
+       case 4:
+        lcd.print("Switch state: 3");
+       
+        break;
+      
+       case 5:
+        lcd.print("Switch state: 3");
+       
+        break;
+      
+      case 6:
+        lcd.print("Switch state: 3");
+       
+        break;
+      
+    }
+  }
+}
